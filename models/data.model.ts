@@ -17,6 +17,7 @@ export interface TextModel {
 
 export interface CandidatesModel {
   candidates: string[];
+  checkable: boolean;
   handleChangeCandidate: any;
 }
 

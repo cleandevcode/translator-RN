@@ -4,6 +4,7 @@ import { CandidatesModel } from "../models/data.model";
 
 const Candidates: React.FC<CandidatesModel> = ({
   candidates,
+  checkable,
   handleChangeCandidate,
 }) => {
   const [selectedText, setSelect] = useState("");
@@ -20,9 +21,15 @@ const Candidates: React.FC<CandidatesModel> = ({
           style={[
             styles.candidateTextButton,
             {
-              backgroundColor: candidate === selectedText ? "#76aab5" : "white",
+              backgroundColor:
+                candidate === selectedText
+                  ? "#76aab5"
+                  : checkable
+                  ? "#8a9b9e"
+                  : "white",
             },
           ]}
+          disabled={checkable}
           key={idx}
           onPress={() => handleCandidate(candidate)}
         >

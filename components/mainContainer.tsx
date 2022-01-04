@@ -4,20 +4,28 @@ import OriginalText from "./originalText";
 import Candidates from "./candidates";
 import TargetText from "./targetText";
 import { MainModel } from "../models/data.model";
+import AnswerCheckButton from "./answerCheckButton";
 
 const MainContainer: React.FC<MainModel> = ({ data, handleNextSentence }) => {
   const { target, candidates, original, aIndex } = data;
   const [candidate, setCandidate] = useState("");
   const [correctAnswer, setCorrectness] = useState(false);
+  const [checkable, setCheckable] = useState(false);
+  const [answer, setAnswer] = useState("");
 
   const handleChangeCandidate = (candidate: string) => {
     setCandidate(candidate);
   };
 
   const handleCheckAnswer = () => {
+    handleNextStep();
+  };
+
+  const handleContinue = () => {
+    setAnswer(target.split(" ")[aIndex]);
+    setCheckable(true);
     if (target.split(" ")[aIndex] === candidate) {
       setCorrectness(true);
-      handleNextStep();
     } else {
       setCorrectness(false);
     }
@@ -26,11 +34,13 @@ const MainContainer: React.FC<MainModel> = ({ data, handleNextSentence }) => {
   const handleNextStep = () => {
     setCandidate("");
     handleNextSentence();
+    setCheckable(false);
+    setAnswer("");
   };
 
   return (
-    <View style={styles.mainContent}>
-      <View style={styles.textContent}>
+    <View style={[styles.mainContent, { padding: checkable ? 0 : 20 }]}>
+      <View style={[styles.textContent, { padding: checkable ? 20 : 0 }]}>
         <Text style={styles.note}>Fill in the missing word</Text>
         <OriginalText index={aIndex} arrayText={original.split(" ")} />
         <TargetText
@@ -41,22 +51,31 @@ const MainContainer: React.FC<MainModel> = ({ data, handleNextSentence }) => {
         <Candidates
           candidates={candidates}
           handleChangeCandidate={handleChangeCandidate}
+          checkable={checkable}
         />
       </View>
-      <TouchableOpacity
-        style={[
-          styles.button,
-          {
-            backgroundColor: candidate.length === 0 ? "#496D79" : "#4BF0FF",
-          },
-        ]}
-        disabled={candidate.length === 0}
-        onPress={handleCheckAnswer}
-      >
-        <Text style={styles.buttonText}>
-          {candidate.length === 0 ? "CONTINUE" : "CHECK ANSWER"}
-        </Text>
-      </TouchableOpacity>
+      {checkable ? (
+        <AnswerCheckButton
+          correct={correctAnswer}
+          answer={answer}
+          handleCheckAnswer={handleCheckAnswer}
+        />
+      ) : (
+        <TouchableOpacity
+          style={[
+            styles.button,
+            {
+              backgroundColor: candidate.length === 0 ? "#496D79" : "#4BF0FF",
+            },
+          ]}
+          disabled={candidate.length === 0}
+          onPress={handleContinue}
+        >
+          <Text style={styles.buttonText}>
+            {candidate.length === 0 ? "CONTINUE" : "CHECK ANSWER"}
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -72,7 +91,6 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 20,
   },
   textContent: {
     display: "flex",
@@ -84,6 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: "Poppins_400Regular",
     color: "white",
+    marginBottom: 20,
   },
   button: {
     paddingVertical: 16,

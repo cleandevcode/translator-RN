@@ -106,7 +106,7 @@ export default function App() {
           </Animated.View>
         )}
       </View>
-      {loading && <ActivityIndicator />}
+      {loading && <ActivityIndicator color={"white"} size="large" />}
       {!loading && data.length > 0 && !finish && (
         <MainContainer
           data={data[index]}
