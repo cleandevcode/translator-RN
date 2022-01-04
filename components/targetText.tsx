@@ -2,11 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { TargetTextModel } from "../models/data.model";
 
-const TargetText: React.FC<TargetTextModel> = ({
-  index,
-  arrayText,
-  candidate,
-}) => {
+const TargetText: React.FC<TargetTextModel> = ({ index, text, candidate }) => {
   return (
     <View
       style={[
@@ -14,7 +10,7 @@ const TargetText: React.FC<TargetTextModel> = ({
         { alignItems: candidate.length > 0 ? "center" : "stretch" },
       ]}
     >
-      {arrayText.map((text, idx) => {
+      {text.split(" ").map((text, idx) => {
         if (idx === index) {
           if (candidate.length > 0) {
             return (

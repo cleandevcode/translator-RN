@@ -15,9 +15,6 @@ import { firebase } from "./firebase";
 import { TranslateModel } from "./models/data.model";
 import MainContainer from "./components/mainContainer";
 
-const demo =
-  "helo hello heello sdf kh kihiouh kljkjhn ljljk lkjlkj lkjlkj iyug iughih iuh";
-
 export default function App() {
   const [fontsLoaded] = useFonts({ Poppins_400Regular });
   const [loading, setLoading] = useState(false);

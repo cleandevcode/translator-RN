@@ -12,7 +12,7 @@ export interface MainModel {
 
 export interface TextModel {
   index: number;
-  arrayText: string[];
+  text: string;
 }
 
 export interface CandidatesModel {
@@ -23,6 +23,6 @@ export interface CandidatesModel {
 
 export interface TargetTextModel {
   index: number;
-  arrayText: string[];
+  text: string;
   candidate: string;
 }

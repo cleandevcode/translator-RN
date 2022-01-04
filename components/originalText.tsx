@@ -2,10 +2,10 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { TextModel } from "../models/data.model";
 
-const OriginalText: React.FC<TextModel> = ({ index, arrayText }) => {
+const OriginalText: React.FC<TextModel> = ({ index, text }) => {
   return (
     <Text style={styles.originalText}>
-      {arrayText.map((text, idx) => {
+      {text.split(" ").map((text, idx) => {
         if (idx === index) {
           return (
             <Text key={idx} style={styles.boldText}>

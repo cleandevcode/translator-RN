@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Animated,
-} from "react-native";
+import { Text, TouchableOpacity, StyleSheet, Animated } from "react-native";
 
 interface AnswerCheckButtonModel {
   correct: boolean;

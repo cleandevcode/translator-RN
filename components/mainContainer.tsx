@@ -42,12 +42,8 @@ const MainContainer: React.FC<MainModel> = ({ data, handleNextSentence }) => {
     <View style={[styles.mainContent, { padding: checkable ? 0 : 20 }]}>
       <View style={[styles.textContent, { padding: checkable ? 20 : 0 }]}>
         <Text style={styles.note}>Fill in the missing word</Text>
-        <OriginalText index={aIndex} arrayText={original.split(" ")} />
-        <TargetText
-          index={aIndex}
-          arrayText={target.split(" ")}
-          candidate={candidate}
-        />
+        <OriginalText index={aIndex} text={original} />
+        <TargetText index={aIndex} text={target} candidate={candidate} />
         <Candidates
           candidates={candidates}
           handleChangeCandidate={handleChangeCandidate}
