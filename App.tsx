@@ -6,6 +6,7 @@ import {
   Animated,
   View,
   Easing,
+  TouchableOpacity,
 } from "react-native";
 import AppLoading from "expo-app-loading";
 import { useFonts, Poppins_400Regular } from "@expo-google-fonts/poppins";
@@ -23,8 +24,8 @@ export default function App() {
 
   const [data, setData] = useState<TranslateModel[]>([]);
   const [finish, setFinish] = useState(false);
-  const [rotate] = useState(new Animated.Value(0));
-  const [fontSize] = useState(new Animated.Value(0));
+  const [rotate, setRorate] = useState(new Animated.Value(0));
+  const [fontSize, setFontSize] = useState(new Animated.Value(0));
 
   const [index, setIndex] = useState(0);
 
@@ -41,6 +42,9 @@ export default function App() {
         duration: 1000,
         easing: Easing.linear,
       }).start();
+    } else {
+      setRorate(new Animated.Value(0));
+      setFontSize(new Animated.Value(0));
     }
   }, [finish]);
 
@@ -70,6 +74,11 @@ export default function App() {
     }
   };
 
+  const handleContinue = () => {
+    setFinish(false);
+    setIndex(0);
+  };
+
   if (!fontsLoaded) {
     return <AppLoading />;
   }
@@ -79,16 +88,19 @@ export default function App() {
       <View style={finish ? styles.finishContent : styles.topContent}>
         {finish && (
           <Animated.View
-            style={{
-              transform: [
-                {
-                  rotateZ: rotate.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ["0deg", "360deg"],
-                  }),
-                },
-              ],
-            }}
+            style={[
+              styles.animateContent,
+              {
+                transform: [
+                  {
+                    rotateZ: rotate.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: ["0deg", "360deg"],
+                    }),
+                  },
+                ],
+              },
+            ]}
           >
             <Animated.Text
               style={[
@@ -103,6 +115,12 @@ export default function App() {
             >
               Great Job!
             </Animated.Text>
+            <TouchableOpacity
+              onPress={handleContinue}
+              style={styles.nextButton}
+            >
+              <Text style={styles.nextText}>Continue Next Challenge</Text>
+            </TouchableOpacity>
           </Animated.View>
         )}
       </View>
@@ -133,11 +151,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  animateContent: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   finishText: {
     color: "white",
-
     fontFamily: "Poppins_400Regular",
     fontWeight: "bold",
+  },
+  nextButton: {
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "white",
+    padding: 10,
+    marginTop: 20,
+  },
+  nextText: {
+    fontSize: 14,
+    color: "white",
+    fontFamily: "Poppins_400Regular",
   },
   targetContent: {
     display: "flex",
