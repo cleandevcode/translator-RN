@@ -13,7 +13,7 @@ import { useFonts, Poppins_400Regular } from "@expo-google-fonts/poppins";
 import { useEffect, useState } from "react";
 import { firebase } from "./firebase";
 import { TranslateModel } from "./models/data.model";
-import MainContainer from "./components/mainContainer";
+import MainContainer from "./components/MainContainer";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Poppins_400Regular });

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import OriginalText from "./originalText";
-import Candidates from "./candidates";
-import TargetText from "./targetText";
+import OriginalText from "./OriginalText";
+import Candidates from "./Candidates";
+import TargetText from "./TargetText";
 import { MainModel } from "../models/data.model";
-import AnswerCheckButton from "./answerCheckButton";
+import AnswerCheckButton from "./AnswerCheckButton";
 
 const MainContainer: React.FC<MainModel> = ({ data, handleNextSentence }) => {
   const { target, candidates, original, aIndex } = data;
